@@ -27,8 +27,8 @@
               <div class="card-body p-5 text-center">
     
                 <h3 class="mb-5">Create an Account</h3>
-                <form action="{{route('login.post')}}" method="POST">
-
+                <form action="{{route('register.post')}}" method="POST">
+                  @csrf
                   <div data-mdb-input-init class="form-outline mb-4"> 
                     <label class="form-label" >Name</label>
                     <input type="text" name="name" class="form-control form-control-lg" />

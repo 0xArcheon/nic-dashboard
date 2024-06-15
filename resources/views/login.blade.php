@@ -25,7 +25,8 @@
           <div class="card-body p-5 text-center">
 
             <h3 class="mb-5">Sign in</h3>
-            <form action="{{route('login.post')}}" method="POST">
+            <form action="{{route('login.post')}}" method="POST" >
+              @csrf
               <div data-mdb-input-init class="form-outline mb-4"> 
                 <label class="form-label" >Email</label>
                 <input type="email" name="email" class="form-control form-control-lg" />
