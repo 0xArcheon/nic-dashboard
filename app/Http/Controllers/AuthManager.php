@@ -18,6 +18,9 @@ class AuthManager extends Controller
     }
 
     function register() {
+        if(Auth::check()){
+            return redirect(route('home'));
+        }
         return view('register');
     }
 

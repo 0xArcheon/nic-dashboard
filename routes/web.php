@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthManager;
 /*
@@ -22,4 +23,9 @@ Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
 Route::get('/register', [AuthManager::class, 'register'])->name('register');
 Route::post('/register', [AuthManager::class, 'registerPost'])->name('register.post');
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('home');
+});
 
