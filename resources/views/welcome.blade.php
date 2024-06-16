@@ -4,13 +4,15 @@
     @auth
         <section class="pt-5"
             style="background-color: #8EC5FC;
-background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-">
+            background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);">
             {{-- Statistic cards --}}
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="card l-bg-cherry mb-3">
+                    <div class="col-xl-3 col-lg-3">
+                        <div class="card l-bg-cherry mb-3"
+                            style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+                             rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+                             rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
                                 <div class="mb-4">
@@ -26,8 +28,11 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="card l-bg-blue-dark mb-3">
+                    <div class="col-xl-3 col-lg-3">
+                        <div class="card l-bg-blue-dark mb-3"
+                            style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+                        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+                        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
                                 <div class="mb-4">
@@ -43,8 +48,11 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="card l-bg-green-dark mb-3">
+                    <div class="col-xl-3 col-lg-3">
+                        <div class="card l-bg-green-dark mb-3"
+                            style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+                        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+                        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
                                 <div class="mb-4">
@@ -60,8 +68,11 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="card l-bg-orange-dark mb-3">
+                    <div class="col-xl-3 col-lg-3">
+                        <div class="card l-bg-orange-dark mb-3"
+                            style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+                        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+                        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i></div>
                                 <div class="mb-4">
@@ -84,7 +95,8 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
             <div class="container pb-5">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card p-5">
+                        <div class="card p-5"
+                            style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
                             @if ($scheme->isEmpty())
                                 <div class="text-center card-body">
                                     <p>No schemes found.</p>
@@ -93,6 +105,10 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                                     </div>
                                 </div>
                             @else
+                                <div class="card mb-3">
+                                    <button type="button" onclick="window.location.href='{{ route('import') }}'"
+                                        class="btn btn-dark btn-m">Create New Batch Entry</button>
+                                </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title m-b-0">Scheme Entries</h5>
                                 </div>
@@ -104,10 +120,25 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                                                 <th scope="col">Scheme Name</th>
                                                 <th scope="col">Scheme Type</th>
                                                 <th scope="col">Financial Year</th>
-                                                <th scope="col">Total Disbursement(Rupees)</th>
+                                                <th scope="col">Total Disbursement</th>
                                             </tr>
                                         </thead>
                                         <tbody class="customtable">
+                                            @php
+                                                function formatInd($number)
+                                                {
+                                                    // Check if the number is less than 1 lakh
+                                                    if ($number < 100000) {
+                                                        return number_format($number);
+                                                    }
+                                                    // Convert number to lakhs and crores
+                                                    elseif ($number < 10000000) {
+                                                        return number_format($number / 100000, 2) . ' Lakhs';
+                                                    } else {
+                                                        return number_format($number / 10000000, 2) . ' Crores';
+                                                    }
+                                                }
+                                            @endphp
                                             @foreach ($scheme as $item)
                                                 <tr>
                                                     <td>{{ $item->scheme_code }}</td>
@@ -122,7 +153,7 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                                                         @endif
                                                     </td>
                                                     <td>{{ $item->fin_year }}</td>
-                                                    <td class="text-end">{{ $item->total_disbursement }}</td>
+                                                    <td class="text-end">Rs.{{ formatInd($item->total_disbursement) }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -133,7 +164,7 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                     </div>
                 </div>
             </div>
-
         </section>
+
     @endauth
 @endsection
