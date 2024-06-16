@@ -11,7 +11,18 @@ class SchemeController extends Controller
 {
     public function index() {
         $scheme = Scheme::all();
-        return view('import', compact('scheme'));
+        $totalSchemes = Scheme::count(); //gets total entry count
+        $uniqueSchemeCount = Scheme::distinct('scheme_code')->count('scheme_code');  // Get the count of unique scheme_code entries
+        
+        // Count unique scheme_code entries for 'central_scheme'
+        $centralSchemesCount = Scheme::where('central_state_scheme', 'central_scheme')
+        ->distinct('scheme_code')->count('scheme_code');
+
+        // Count unique scheme_code entries for other schemes
+        $stateSchemesCount = Scheme::where('central_state_scheme', 'state_scheme')
+        ->distinct('scheme_code')->count('scheme_code');
+
+        return view('welcome', compact('scheme','totalSchemes','uniqueSchemeCount', 'centralSchemesCount', 'stateSchemesCount'));
     }
 
     public function importPost(Request $request) {

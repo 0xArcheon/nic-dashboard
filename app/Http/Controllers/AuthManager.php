@@ -12,7 +12,7 @@ class AuthManager extends Controller
 {
     function login() {
         if(Auth::check()){
-            return redirect(route('home'));
+            return redirect(route('welcome'));
         }
         return view('login');
     }
