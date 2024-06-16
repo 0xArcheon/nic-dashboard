@@ -3,6 +3,7 @@
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthManager;
+use \App\Http\Controllers\SchemeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,5 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    Route::get('/import',[SchemeController::class, 'index'])->name('import');
+    Route::post('/import',[SchemeController::class, 'importPost'])->name('import.post');
 });
 
