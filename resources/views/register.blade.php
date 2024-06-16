@@ -2,7 +2,7 @@
 @section('title', 'Register')
 @section('content')
 
-    <section class="vh-100"
+    <section class="min-vh-100"
         style="background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">

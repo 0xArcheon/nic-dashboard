@@ -9,7 +9,7 @@
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
                             <h3 class="mb-4">Upload your file</h3>
-                            <h5 class="mb-4">(Only .xlsx file supported)</h5>
+                            <p class="mb-4">(Only .xls / .xlsx files are supported)</p>
                             @if (session('status'))
                                 <div class="alert alert-success">{{ session('status') }}</div>
                             @endif

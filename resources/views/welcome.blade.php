@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 @section('content')
     @auth
-        <section class="pt-5"
+        <section class="pt-5 min-vh-100"
             style="background-color: #8EC5FC;
             background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);">
             {{-- Statistic cards --}}

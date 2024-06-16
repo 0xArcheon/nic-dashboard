@@ -30,11 +30,17 @@ class SchemeController extends Controller
             'import_file' => [ 
                 'required',
                 'file', 
+                'mimes:xls,xlsx',
             ],
         ]);
 
-        Excel::import(new SchemeImport, $request->file('import_file'));
-        return redirect()->back()->with('status', 'imported successfully');
+        try {
+            Excel::import(new SchemeImport, $request->file('import_file'));
+            return redirect()->back()->with('status', 'Imported successfully');
+        } 
+        catch (\Exception $e) {
+            return redirect()->back()->withErrors(['import_file' => 'Import failed: ' . $e->getMessage()]);
+        }
 
     }
 }

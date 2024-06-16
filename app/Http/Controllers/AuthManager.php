@@ -38,22 +38,30 @@ class AuthManager extends Controller
         return redirect()->intended(route('login'))->with("error", "Login details are invalid" );
     }
 
-    function registerPost (Request $request) {
+    function registerPost(Request $request) {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
         ]);
-        
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
-        $data['password'] = Hash::make($request->password); 
-        $user = User::create($data); 
-        if(!$user) {
-            return redirect()->intended(route('register'))->with("error", "Failed to create user");
+    
+        try {
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['password'] = Hash::make($request->password);
+    
+            $user = User::create($data);
+    
+            if (!$user) {
+                return redirect()->intended(route('register'))->with("error", "Failed to create user.");
+            }
+    
+            return redirect()->intended(route('login'))->with("success", "User created successfully. Please log in.");
+        } catch (\Exception $e) {
+            return redirect()->intended(route('register'))->with("error", "Failed to create user: " . $e->getMessage());
         }
-        return redirect()->intended(route('login'))->with("success", "User created successfully"); 
     }
+    
 
     function logout() {
         Session::flush();
